@@ -17,13 +17,16 @@
 					placeholder="Insira a url de uma foto do quarto"
 				>
 				</v-text-field>
-				<v-btn type="submit" block class="ma-2" color="#5DCAD1">Cadastrar</v-btn>
+				<v-btn type="submit" @click="registraCadastros()" block class="ma-2" color="#5DCAD1">Cadastrar</v-btn>
 			</v-form>
 		</v-sheet>
 	</div>
 </template>
 <script>
 import AlertaCriado from "./AlertaCriado.vue";
+import { mapState } from "pinia"
+import { useAccountsStore } from "@/stores/accountsStore"
+
 export default {
 		components: {
 		AlertaCriado
@@ -51,10 +54,13 @@ export default {
 			msg: null,
 		};
 	},
+	computed: {
+    	...mapState(useAccountsStore, ["loggedUser"]),
+	},
 	// mounted(){
 	// 	//this.getCadastros()
 	// },
-	methods: {
+	// methods: {
 		// async getCadastros() {
 		// 	const req = await fetch("http://localhost:3000/dados");
 		// 	const data = await req.json();
@@ -94,19 +100,36 @@ export default {
 		// 	this.descricao = "";
 		// 	this.imagem = "";
 		// },
-		emits: ["newQuarto"],
-		data: () => {
-			return {
-			title: "",
-			}
+		// emits: ["newQuarto"],
+		// data: () => {
+		// 	return {
+		// 	title: "",
+		// 	}
+		// },	
+	methods: {
+			// addNewQuarto() {
+			// this.$emit("newQuarto", {
+			// 	title: this.title,
+			// })
+			// this.title = ""
+			// },
+		registraCadastros(){
+			let respostas = []
+			respostas.push(this.nome, this.cidade, this.valor, this.animal, this.description, this.imagem)
+			this.addNewQuarto(respostas)
+			return respostas
 		},
-		methods: {
-			addNewQuarto() {
-			this.$emit("newQuarto", {
-				title: this.title,
-			})
-			this.title = ""
-			},
+		addNewQuarto(respostas) {
+			this.loading = true
+			QuartosApi.addNewQuarto(quarto, this.loggedUser.id).then((quarto) => {
+				this.loading = false
+				this.$router.push({ name: "quarto" })
+				console.log("oi")
+				}).catch((error) => {
+					console.log('ferrou')
+					console.log(error)
+					this.loading = false
+				})
 		},
 	},
 }

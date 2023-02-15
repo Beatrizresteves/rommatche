@@ -3,14 +3,14 @@ from ..models import Quarto
 
 def add_quarto(new_quarto):
     quarto = Quarto(
-        nome=new_quarto["nome"],
-        cidade=new_quarto["cidade"],
-        valorr=new_quarto["valorr"],
-        description=new_quarto["description"],
-        imagem=new_quarto["imagem"],
+        nome=new_quarto,
+        cidade=new_quarto,
+        valorr=new_quarto,
+        description=new_quarto,
+        imagem=new_quarto,
     )
     quarto.save()
-    return quarto.Obsto_dict_json()
+    return quarto.to_dict_json()
 
 
 def list_quartos():

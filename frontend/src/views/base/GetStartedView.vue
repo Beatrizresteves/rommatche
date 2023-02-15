@@ -17,7 +17,7 @@
     </v-btn>
     <search-citys/>
     <rooms-match/>
-
+    <maths/>
   </v-container>
 </template>
 
@@ -26,8 +26,9 @@
 import AppNavBar from "@/components/AppNavBar.vue"
 import SearchCitys from '../../components/SearchCitys.vue'
 import RoomsMatch from '../../components/RoomsMatch.vue'
+import Maths from '../../components/Maths.vue'
 
 export default {
-  components: { AppNavBar, SearchCitys, RoomsMatch },
+  components: { AppNavBar, SearchCitys, RoomsMatch, Maths },
 }
 </script>

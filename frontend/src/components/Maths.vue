@@ -1,9 +1,10 @@
 <template>
+  <h1>teste</h1>
   <v-card>
     <v-card-text>
-      <div>#{{ quarto.id }}</div>
+      <div>#{{ quartos }}</div>
       <p class="ma-0 pa-0 text-h5 text--primary">
-        {{ quarto.description }}
+      teste  ssd{{ quartos }}
       </p>
     </v-card-text>
   </v-card>
