@@ -1,109 +1,124 @@
 <template>
-  <v-card
-    :loading="loading"
-    class="mx-auto my-12"
-    max-width="374"
-  >
-    <template #progress>
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
-    <v-img
-      height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
-
-    <v-card-title>{{ title }}</v-card-title>
-
-    <v-card-text>
-      <div class="my-4 text-subtitle-1">
-        $ {{ value }}
-      </div>
-
-      <div>{{ description }}</div>
-    </v-card-text>
-
-    <v-divider class="mx-4"></v-divider>
-
-    <v-card-title>{{ items }}</v-card-title>
-
-     <div>
-      <v-btn
-        class="ma-2"
-        text
-        icon
-        color="#5DCAD1"
-      >
-        <v-icon>mdi-thumb-up</v-icon>
-      </v-btn>
-
-      <v-btn
-        class="ma-2"
-        text
-        icon
-        color="primary"
-      >
-        <v-icon>mdi-thumb-down</v-icon>
-      </v-btn>
-    </div>
-    <p class="ma-2"> {{ items.nome }}</p>
-    <p class="ma-2"> {{ items.valor }}</p>
-    {{ items.description }}
-      <maths :quartos="item"/>
-         <!-- <v-col v-for="item in items" :key="item.id" cols="12">
-        <task :quarto="item" />
+  <v-container class="fill-height">
+    <v-row justify="center" align="center">
+      <!-- <v-col cols="12">
+        <task-form :form-label="'Nova Tarefa'" @new-task="addNewTask" />
       </v-col> -->
-  </v-card>
+        <!-- <v-autocomplete
+          label="Autocomplete"
+          :items="cidades"
+        ></v-autocomplete> -->
+      <v-col v-for="item of items" :key="item.id" cols="auto" width="1000" :class="['d-flex justify-center align-center', `elevation-${n}`]">
+          <v-card
+            :loading="loading"
+            class="mx-auto my-12"
+            width="350"
+
+          >
+            <template #progress>
+              <v-progress-linear
+                color="deep-purple"
+                height="10"
+                indeterminate
+              ></v-progress-linear>
+            </template>
+
+            <v-img
+              height="250"
+              :src="item.imagem"
+            ></v-img>
+
+            <v-card-title>{{ item.nome }}</v-card-title>
+
+            <v-card-text>
+              <div class="my-4 text-subtitle-1">
+                $ {{ item.valor }}
+              </div>
+
+              <div>{{ item.description }}</div>
+            </v-card-text>
+
+            <v-divider class="mx-4"></v-divider>
+
+            <v-card-title>{{ item.cidade }}</v-card-title>
+
+
+            <div>
+              <v-btn
+                class="ma-2"
+                text
+                icon
+                color="#5DCAD1"
+              >
+                <v-icon>mdi-thumb-up</v-icon>
+              </v-btn>
+
+              <v-btn
+                class="ma-2"
+                text
+                icon
+                color="primary"
+              >
+                <v-icon>mdi-thumb-down</v-icon>
+              </v-btn>
+            </div>
+          </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+
  
 </template>
 <script>
 import { useAppStore } from "@/stores/appStore"
-import { mapState } from "pinia"
-import { useAccountsStore } from "@/stores/accountsStore"
 import QuartosApi from "@/api/quarto.api.js"
-import Maths from './Maths.vue'
 
-  export default {
-  components: { Maths },
-    setup() {
+export default {
+  props: ['cidadeEscolhida'],
+  setup() {
       const appStore = useAppStore()
       return { appStore }
     },
-    data: () => ({
-      loading: false,
-      selection: 1,
-      title: "mmksmkf",
-      value: "1220",
-      name: "José",
-      description: "fnkdnfkjsnkjnskjfnskjfnksjnfkjsfkjsnfkjsn",
-      items: [],
-    }),
-    computed: {
-      ...mapState(useAccountsStore, ["loggedUser"]),
+    data() {
+      return {
+        loading: false,
+        // selection: 1,
+        // title: "mmksmkf",
+        // value: "1220",
+        // name: "José",
+        // description: "fnkdnfkjsnkjnskjfnskjfnksjnfkjsfkjsnfkjsn",
+        items: [],
+        cidades: [],
+      }
     },
     mounted() {
-      this.getQuartos()
-    },
+      this.getQuartos();
+      console.log(this.items)
+    //   axios.get('/api/images/1/').then((response) => {
+    //   this.imageUrl = response.data.url;
+    // });
+      // cidadeEscolhida()
+      //   if (this.item.cidade === cidade) {
+      //     return cidade
+      //   }
+      },
     methods: {
       getQuartos() {
         this.loading = true
         QuartosApi.getQuartos().then((data) => {
-          this.items = data
+          this.items = data.quartos
+          // this.cidades = this.cidades.push(this.items.cidades)
+          // this.UrlImg = `https://image.tmdb.org/t/p/original/${this.items.imagem}`
           this.loading = false
         })
       },
-      addNewQuarto(quarto) {
+      async addNewQuarto(quarto) {
         this.loading = true
-        QuartosApi.addNewQuarto(quarto.name).then((quarto) => {
-          this.appStore.showSnackbar(`Novo quarto adicionada #${quarto.id}`)
-          this.getQuartos()
-          this.loading = false
-          console.log("oi")
-        })
+        await QuartosApi.addNewQuarto(quarto) 
+        this.appStore.showSnackbar(`Novo quarto adicionada #${quarto.id}`)
+        this.getQuartos()
+        this.loading = false
+        console.log("oi")
       },
     },
   }

@@ -1,6 +1,7 @@
 // Composables
 import DefaultLayout from "@/layouts/default/DefaultLayout.vue"
 import GetStartedView from "@/views/base/GetStartedView"
+import MatchsView from "@/views/base/GetStartedView"
 
 export default [
   {
@@ -11,6 +12,11 @@ export default [
         path: "list",
         name: "quartos-list",
         component: GetStartedView,
+      },
+      {
+        path: "matchs",
+        name: "quartos-matchs",
+        component: MatchsView,
       },
     ],
   },

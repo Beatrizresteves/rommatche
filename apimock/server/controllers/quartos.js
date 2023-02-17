@@ -32,7 +32,6 @@ module.exports = {
     const { cidade } = req.body;
     const { valor } = req.body;
     const { imagem } = req.body;
-
     const id = getMaxId(data.quartos) + 1;
     const newQuarto = {
       id,

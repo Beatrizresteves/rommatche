@@ -3,21 +3,21 @@
 		<v-sheet width="700" class="mx-auto pt-15">
 			<h1 color="primary">Cadastro de quarto</h1>
 			<AlertaCriado v-show="msg" :msg="msg"/>
-			<v-form @new-quarto="addNewQuarto">
+			<v-form @submit="addNewQuarto">
 				<v-text-field id="nome" v-model="nome" type="text" name="name" placeholder="Digite o seu nome">
 				</v-text-field>
 				<v-text-field id="cidade" v-model="cidade" type="text" name="cidade" placeholder="Digite a cidade">
 				</v-text-field>
 				<v-text-field id="valor" v-model="valor" type="text" name="valor" placeholder="Digite o valor do aluguel">
 				</v-text-field>
-				<v-textarea id="descricao" v-model="descricao" type="text" name="descricao" placeholder="Descreva o quarto">
+				<v-textarea id="descricao" v-model="description" type="text" name="descricao" placeholder="Descreva o quarto">
 				</v-textarea>
 				<v-text-field
 					v-model="imagem"
 					placeholder="Insira a url de uma foto do quarto"
 				>
 				</v-text-field>
-				<v-btn type="submit" @click="registraCadastros()" block class="ma-2" color="#5DCAD1">Cadastrar</v-btn>
+				<v-btn type="submit" block class="ma-2" color="#5DCAD1" >Cadastrar</v-btn>
 			</v-form>
 		</v-sheet>
 	</div>
@@ -26,6 +26,7 @@
 import AlertaCriado from "./AlertaCriado.vue";
 import { mapState } from "pinia"
 import { useAccountsStore } from "@/stores/accountsStore"
+import QuartosApi from "@/api/quarto.api.js"
 
 export default {
 		components: {
@@ -55,8 +56,9 @@ export default {
 		};
 	},
 	computed: {
-    	...mapState(useAccountsStore, ["loggedUser"]),
-	},
+    ...mapState(useAccountsStore, ["loggedUser"]),
+}	
+,
 	// mounted(){
 	// 	//this.getCadastros()
 	// },
@@ -107,30 +109,15 @@ export default {
 		// 	}
 		// },	
 	methods: {
-			// addNewQuarto() {
-			// this.$emit("newQuarto", {
-			// 	title: this.title,
-			// })
-			// this.title = ""
-			// },
-		registraCadastros(){
-			let respostas = []
-			respostas.push(this.nome, this.cidade, this.valor, this.animal, this.description, this.imagem)
-			this.addNewQuarto(respostas)
-			return respostas
-		},
-		addNewQuarto(respostas) {
+		async addNewQuarto() {
+			const campos = {nome: this.nome, valor: this.valor, cidade: this.cidade, description: this.description}
 			this.loading = true
-			QuartosApi.addNewQuarto(quarto, this.loggedUser.id).then((quarto) => {
-				this.loading = false
-				this.$router.push({ name: "quarto" })
-				console.log("oi")
-				}).catch((error) => {
-					console.log('ferrou')
-					console.log(error)
-					this.loading = false
-				})
+			await QuartosApi.addNewQuarto(campos) 
+			// this.appStore.showSnackbar(`Novo quarto adicionada #${campos}`)
+			this.getQuartos()
+			this.loading = false
+			console.log("oi")
 		},
-	},
+	}
 }
 </script>

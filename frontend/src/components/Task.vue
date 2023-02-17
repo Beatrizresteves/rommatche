@@ -3,6 +3,7 @@
     <v-card-text>
       <div>#{{ task.id }}</div>
       <p class="ma-0 pa-0 text-h5 text--primary">
+        {{ task }}
         {{ task.description }}
       </p>
     </v-card-text>
@@ -20,5 +21,9 @@ export default {
     },
   },
   data: () => ({}),
+  mounted() {
+    console.log(this.task)
+    console.log(this.task.id)
+  },
 }
 </script>

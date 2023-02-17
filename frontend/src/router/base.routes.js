@@ -3,6 +3,7 @@ import EmptyLayout from "@/layouts/default/EmptyLayout.vue"
 import HomeView from "@/views/base/HomeView.vue"
 import GetStartedView from "@/views/base/GetStartedView.vue"
 import GetRegisterView from "@/views/base/GetRegisterView.vue"
+import MatchsView from "@/views/base/MatchsView.vue"
 
 export default [
   {
@@ -23,6 +24,11 @@ export default [
         path: "getregister",
         name: "base-getregister",
         component: GetRegisterView,
+      },
+      {
+        path: "likes",
+        name: "base-likes",
+        component: MatchsView,
       }
     ],
   },

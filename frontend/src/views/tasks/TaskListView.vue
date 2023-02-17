@@ -39,6 +39,7 @@ export default {
   },
   mounted() {
     this.getTasks()
+    console.log(this.items)
   },
   methods: {
     getTasks() {

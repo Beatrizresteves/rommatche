@@ -24,7 +24,7 @@
         <v-menu activator="parent">
           <v-list>
             <v-list-item :to="{ name: 'accounts-logout' }"> Sair </v-list-item>
-            <v-list-item :to="{ name: 'accounts-logout' }"> Likes </v-list-item>
+            <v-list-item :to="{ name: 'base-likes' }"> Likes </v-list-item>
           </v-list>
         </v-menu>
       </v-btn>
