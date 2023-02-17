@@ -4,13 +4,13 @@
 			<h1 color="primary">Cadastro de quarto</h1>
 			<AlertaCriado v-show="msg" :msg="msg"/>
 			<v-form @submit="addNewQuarto">
-				<v-text-field id="nome" v-model="nome" type="text" name="name" placeholder="Digite o seu nome">
+				<v-text-field  id="nome" v-model="nome" :label="formLabel" type="text" name="name" placeholder="Digite o seu nome">
 				</v-text-field>
-				<v-text-field id="cidade" v-model="cidade" type="text" name="cidade" placeholder="Digite a cidade">
+				<v-text-field id="cidade" v-model="cidade" :label="formLabel" type="text" name="cidade" placeholder="Digite a cidade">
 				</v-text-field>
-				<v-text-field id="valor" v-model="valor" type="text" name="valor" placeholder="Digite o valor do aluguel">
+				<v-text-field  id="valor" v-model="valor" :label="formLabel" type="text" name="valor" placeholder="Digite o valor do aluguel">
 				</v-text-field>
-				<v-textarea id="descricao" v-model="description" type="text" name="descricao" placeholder="Descreva o quarto">
+				<v-textarea id="descricao" v-model="description" :label="formLabel" type="text" name="descricao" placeholder="Descreva o quarto">
 				</v-textarea>
 				<v-text-field
 					v-model="imagem"
@@ -114,7 +114,6 @@ export default {
 			this.loading = true
 			await QuartosApi.addNewQuarto(campos) 
 			// this.appStore.showSnackbar(`Novo quarto adicionada #${campos}`)
-			this.getQuartos()
 			this.loading = false
 			console.log("oi")
 		},

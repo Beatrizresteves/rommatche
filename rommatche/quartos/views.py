@@ -25,7 +25,7 @@ from ..commons.django_views_utils import ajax_login_required
 @csrf_exempt
 @ajax_login_required
 def add_quarto(request):
-    quarto = quarto_svc.add_quarto(request.POST)
+    quarto = quarto_svc.add_quarto(request.POST["nome", 'cidade', 'valor', 'description', 'imagem'])
     return JsonResponse(quarto)
 
 

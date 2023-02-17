@@ -38,8 +38,8 @@ app.get("/api/tasks/list", tasks.find);
 app.post("/api/tasks/add", tasks.add);
 
 // QUARTOS
-app.get("/api/quartos/list_quartos", quartos.find);
-app.post("/api/quartos/add_quarto", quartos.add);
+app.get("/api/quartos/list_quartos", quartos.find_quarto);
+app.post("/api/quartos/add_quarto", quartos.add_quarto);
 
 app.listen(PORT, () => {
   console.log(

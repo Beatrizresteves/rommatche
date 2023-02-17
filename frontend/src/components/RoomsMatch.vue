@@ -112,14 +112,14 @@ export default {
           this.loading = false
         })
       },
-      async addNewQuarto(quarto) {
-        this.loading = true
-        await QuartosApi.addNewQuarto(quarto) 
-        this.appStore.showSnackbar(`Novo quarto adicionada #${quarto.id}`)
-        this.getQuartos()
-        this.loading = false
-        console.log("oi")
-      },
+      // async addNewQuarto(quarto) {
+      //   this.loading = true
+      //   await QuartosApi.addNewQuarto(quarto) 
+      //   this.appStore.showSnackbar(`Novo quarto adicionada #${quarto.id}`)
+      //   this.getQuartos()
+      //   this.loading = false
+      //   console.log("oi")
+      // },
     },
   }
 </script>

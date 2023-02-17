@@ -3,11 +3,11 @@ from ..models import Quarto
 
 def add_quarto(new_quarto):
     quarto = Quarto(
-        nome=new_quarto,
-        cidade=new_quarto,
-        valorr=new_quarto,
-        description=new_quarto,
-        imagem=new_quarto,
+        nome=new_quarto["nome"],
+        cidade=new_quarto["cidade"],
+        valor=new_quarto["valor"],
+        description=new_quarto["description"],
+        imagem=new_quarto["imagem"],
     )
     quarto.save()
     return quarto.to_dict_json()

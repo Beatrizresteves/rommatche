@@ -6,7 +6,7 @@ function getMaxId(items) {
 }
 
 module.exports = {
-  find: (req, res) => {
+  find_quarto: (req, res) => {
     const { id } = req.params;
     if (id != undefined) {
       const quarto = data.quartos.find((t) => t.id == id);
@@ -22,7 +22,7 @@ module.exports = {
     };
     res.send(response);
   },
-  add: (req, res) => {
+  add_quarto: (req, res) => {
     const loggedUser = accounts.loginRequired(req, res);
     if (!loggedUser) {
       return;
